@@ -1,0 +1,605 @@
+body {
+	background-image: url('');
+	overflow-x: hidden;
+}
+
+/* The whole app runs inside this div */
+#my-window {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+/* FB like button in the page  */
+#like {
+	position: absolute;
+	top: 40px;
+	left: -80px;
+	right: 3px;
+}
+
+/* The button that is used to scan results  */
+.button {
+      background: #003366;
+	  opacity: 0.5;
+	  filter:alpha(opacity=90);
+      width: 150px;
+	  height: 70%;
+	  color: white;
+	  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	  font-size: 16px;
+	  font-weight: 600;
+}
+
+/* The buttons that appear with graphs to show legends and exceptions and x-lists  */
+.button2 {
+      background: #04B404;
+      width: 80px;
+	  height: 25px;
+	  color: white;
+	  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	  font-size: 12px;
+	  font-weight: 600;
+	  cursor: pointer;
+	  border-radius: 6px;
+}
+
+/* When the above button changes color, it falls to this class  */
+.button3 {
+      background: #B40404;
+      width: 80px;
+	  height: 25px;
+	  color: white;
+	  font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	  font-size: 12px;
+	  font-weight: 600;
+	  cursor: pointer;
+	  border-radius: 6px;
+}
+
+/* This div is used to show the frivacy-icon on the top left  */
+#menu-bar {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+/* This keeps the two menu in the top right corner  */
+#menu {
+	display: inline;
+	position: absolute;
+	top: 5px;
+	left: 55%;
+	right: 0px;
+	height: 30px;
+	background: #003366;
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+	border-radius: 5px;
+}
+
+
+/* This div resides under menu div and keeps the menus in the top-right corner inside the menu bar.  */
+#r-consent {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+}
+
+#r-consent a {
+	text-decoration: none;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 13px;
+	color: white;
+	padding-left: 15px;
+	padding-right: 20px;
+}
+
+#r-consent a:hover {
+	color: #CD3700;
+}
+
+
+/* The button that scan settings.  */
+#launch {
+	padding-bottom: 7px;
+}
+
+#launch:hover {
+	cursor: pointer;
+	opacity: 1.0;
+	filter:alpha(opacity=90);
+}
+
+/* This div keeps the scan button and the date.  */
+#m-consent {
+	position: absolute;
+	left: 5px;
+	top: 130px;
+	width: 100%;
+}
+
+#m-consent span{
+	padding-right: 15px;
+}
+
+#m-consent span label{
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 14px;
+	font-weight: bold;
+	border-bottom: 2px solid #003366;
+	color: #003366;
+}
+
+#m-consent a {
+	text-decoration: none;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 13px;
+	color: white;
+	padding-left: 15px;
+	padding-right: 20px;
+}
+
+#m-consent a:hover {
+	color: #CD3700;
+}
+
+
+/* The detail of the last scan comes in this div. Thus this should be present in-front of the above mentioned div.  */
+#scan-detail {
+	position: absolute;
+	top: 6px;
+	left: 320px;
+	width: 100%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #003366;
+}
+
+
+/* This div contains other divs that are required to show the error reports.  */
+#error-panel {
+	position: absolute;
+	top: 180px;
+	left: 5px;
+	width: 100%;
+	height: 40px;
+	background: black;
+	opacity: 0.8;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 14px;
+	color: white;
+}
+
+/* This div comes under the above div and is used to show the error reports.  */
+#error-report {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+}
+
+#error-report img{
+	padding-right: 10px;
+}
+
+
+/* The consent that is shown up when the consent menu is clicked on the top-right corner  */
+#consent {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+}
+
+#consent-main {
+	display:none;
+	background:#000;
+	opacity:0.9;
+	filter:alpha(opacity=90);
+	position:absolute;
+	top:0px;
+	left:0px;
+	right: 0px;
+	min-width:100%;
+	min-height:100%;
+	z-index:15;
+}
+
+#consent-panel {
+	display:none;
+	position:absolute;
+	top:20%;
+	left:50px;
+	right: 50px;
+	bottom: 5%;
+	background: #fff;
+	padding:10px 15px 10px 15px;
+	border:2px solid #CCCCCC;
+	z-index:16;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+
+/* The about anime that is shown up when the about menu is clicked on the top-right corner  */
+#about {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+}
+
+#about-main {
+	display:none;
+	background:#000;
+	opacity:0.9;
+	filter:alpha(opacity=90);
+	position:absolute;
+	top:0px;
+	left:0px;
+	right: 0px;
+	min-width:100%;
+	min-height:100%;
+	z-index:15;
+}
+
+#about-panel {
+	display:none;
+	position:absolute;
+	top:30%;
+	left:20%;
+	right: 20%;
+	bottom: 30%;
+	background:#FFFFFF;
+	padding:10px 15px 10px 15px;
+	border:2px solid #CCCCCC;
+	z-index:16;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+/* The bottom area that comes under the scan button, the area that actually keeps tables and graphs. This div contains them all.  */
+#results {
+	position: absolute;
+	left: 5px;
+	top: 240px;
+	right: 0px;
+}
+
+/* The menu bar that lets user choose between table and graph  */
+#tab {
+	position: absolute;
+	top: 10px;
+	left: 0px;
+	right: 0px;
+}
+
+/* This div comes inside the above div and is used to maintain the tab-look  */
+#holder {
+	position: absolute;
+	top: 7px;
+	left: 5px;
+	padding: 9px;
+	width: 100%;
+	border-bottom: 1px solid black;
+}
+
+#holder ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#holder ul li{
+	display: inline;
+	list-style-type: none;
+	padding-right: 10px;
+	float: left;
+}	
+
+#holder ul li a {
+	border: 1px solid black;
+	border-bottom: none;
+	margin-right: 3px;
+	text-decoration: none;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	color: black;
+	font-size: 14px;
+	font-weight: 600;
+	padding: 10px;
+	width: 75px;
+	text-align: center;
+	background: #003366;
+}
+
+#holder ul li a:hover {
+	background: #CD3700;
+	color: white;
+	text-shadow: 1px 1px 1px black;
+}
+
+#tab #holder ul li a.mylink {
+	background: white;
+	color: black;
+}
+
+#tab #holder ul li a.mylink:hover {
+	background: white;
+	color: #69F;
+	text-shadow: 1px 1px 1px #000;
+}
+
+
+/* This is the div where actual tables and graphs are stored. This div is the parent of all the said structures.  */
+#actual_results {
+	z-index: -1;
+}
+
+/* the below two id's(loader1 & loader2) are for arranging the loading that appears before TABLE loads up. */
+#loader1 {
+	position: absolute;
+	top: 20px;
+	left: 250px;
+	width: 200px;
+}
+
+#loader2 {
+	position: absolute;
+	top: 70px;
+	left: 250px;
+}
+
+/* This is the TABLE div that is shown when the user clicks "show_table". Strange name, but roll with me.  */
+#rounded-corner {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 13px;
+	text-align: left;
+	border-collapse: collapse;
+	position: absolute;
+	left: 15px;
+	top: 100px;
+	right: 10px;
+}
+
+#rounded-corner thead th.rounded-tables {
+	width: 70%;
+	height: 40px;
+}
+
+#rounded-corner thead th.rounded-q1 {
+
+}
+
+#rounded-corner th {
+	padding: 8px;
+	font-weight: 600;
+	font-size: 14px;
+	color: white;
+	background: #003366;
+	opacity: 0.9;
+}
+
+#rounded-corner td {
+	padding: 8px;
+	background: #003366;
+	opacity: 0.6;
+	filter:alpha(opacity=60);
+	color: white;
+}
+
+
+#rounded-corner #table_body tr:hover{
+	opacity: 0.8;
+	background: black;
+	width: 100%;
+}
+
+#rounded-corner #table_body h4{
+	color: #003366;
+}
+
+/* This div contains all the divs that are necessary to show the elements in the graph properly  */
+#graph-space {
+	position: absolute;
+	top: 80px;
+	left: 0px;
+	right: 5px;
+	border: none;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	color: #003366;
+	font-size: 13px;
+}
+
+/* This div keeps the two catergories of the graph, namely cat1 and cat2  */
+#add_menu {
+	position: absolute;
+	top: 5px;
+	left: 5px;
+	height: 26px;
+	width: 100%;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	color: #003366;
+	font-size: 14px;
+}
+
+/* The red note that is shown is user is inside this div  */
+#usr-help {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	color: red;
+	font-size: 13px;
+	font-weight: bold;
+	position: absolute;
+	top: 50px;
+	left: 200px;
+}
+
+/* This is the space where the actual graph is loaded. Note that this space is only for the graph and the side menu that appears on the graph is different from this.  */
+#mygraph {
+	position: absolute;
+	top: 80px;
+	left: 320px;
+	right: 0px;
+}
+
+/* The Loading font that is shown when the graph is preparing for loading  */
+#loader h4 {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+}
+
+/* This div contains the side menu of the graph. This shows legends, exceptions and x-labels  */
+#graph-helper {
+	position: absolute;
+	top: 80px;
+	left: 0px;
+	width: 300px;
+}
+
+#graph-helper button{
+	margin-right: 5px;
+}
+
+/* The div where legends would appear. Try not to change them as they are inside two nested divs and things may go wrong.  */
+#legends {
+	background:white;
+	width: 315px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	color: white;
+	font-size: 13px;
+	z-index: 5;
+}
+
+/* The div where exceptions would appear. Try not to change them as they are inside two nested divs and things may go wrong.  */
+#exceptions {
+	background:white;
+	width: 315px;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	color: white;
+	font-size: 13px;
+	z-index: 5;
+}
+
+/* This is the class that handles all the styles of the tables that appear on the side of the graph  */
+.leg_t {
+	font-family: "Lucida Sans Unicode", "Lucida Grande", Sans-Serif;
+	font-size: 13px;
+	text-align: left;
+}
+
+/* This is the class that handles all the styles of the table headers(th) that appear on the side of the graph  */
+.leg_th {
+	padding: 8px;
+	font-weight: 600;
+	font-size: 14px;
+	color: white;
+	background: #003366;
+}
+
+
+.leg_tf {
+	width: 100%;
+	height: 100%;
+}
+
+/* This is the class that handles all the styles of the table cells(td) that appear on the side of the graph  */
+.leg td{
+	padding: 8px;
+	background: #003366;
+	opacity: 0.6;
+	filter:alpha(opacity=60);
+	color: white;
+	font-size: 13px;
+	margin: 0px;
+	border: 1px solid #003366;
+}
+
+/* This is the class that handles all the styles of the table rows(tr) that appear on the side of the graph  */
+.leg:hover {
+	opacity: 1.0;
+	background: #003366;
+}
+
+		
+		/* Code Below for tool tip is not mine. I found it on internet and was edited for use. "Thanks to http://sixrevisions.com/css/css-only-tooltips/" */
+		
+		/* Tool-Tip for Legends */
+		#leg_help {
+			outline: none;
+			text-decoration: none;
+			position: relative;
+		}
+		#leg_help span {
+			margin-left: -999em;
+			position: absolute;
+			padding: 10px;
+		}
+		#leg_help:hover span {
+			border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+			box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+			font-family: Calibri, Tahoma, Geneva, sans-serif; color: white;
+			position: absolute; left: 1em; top: -150px; z-index: 99;
+			margin-left: 0; width: 250px;
+		}
+		#leg_help:hover img {
+			border: 0; margin: -13px 0 0 -55px;
+			float: left; position: absolute; left: 30px;
+		}
+		#leg_help:hover em {
+			font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
+			display: block; padding: 0.2em 0 0.6em 0;
+		}
+		.info { background: #003366; border: 1px solid #2BB0D7;	}
+		
+		
+		
+		
+		/* Tool-Tip for Exceptions */
+		#exc_help {
+			outline: none;
+			text-decoration: none;
+			position: relative;
+		}
+		#exc_help span {
+			margin-left: -999em;
+			position: absolute;
+			padding: 10px;
+		}
+		#exc_help:hover span {
+			border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+			box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+			font-family: Calibri, Tahoma, Geneva, sans-serif; color: white;
+			position: absolute; left: 1em; top: -150px; z-index: 99;
+			margin-left: 0; width: 250px;
+		}
+		#exc_help:hover img {
+			border: 0; margin: -13px 0 0 -55px;
+			float: left; position: absolute; left: 30px;
+		}
+		#exc_help:hover em {
+			font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
+			display: block; padding: 0.2em 0 0.6em 0;
+		}
+		.info { background: #003366; border: 1px solid #2BB0D7;	}
+		
+		
+		/* Tool-Tip for X-Labels */
+		#label_exc_help {
+			outline: none;
+			text-decoration: none;
+			position: relative;
+		}
+		#label_exc_help span {
+			margin-left: -999em;
+			position: absolute;
+			padding: 10px;
+		}
+		#label_exc_help:hover span {
+			border-radius: 5px 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; 
+			box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1); -webkit-box-shadow: 5px 5px rgba(0, 0, 0, 0.1); -moz-box-shadow: 5px 5px rgba(0, 0, 0, 0.1);
+			font-family: Calibri, Tahoma, Geneva, sans-serif; color: white;
+			position: absolute; left: 1em; top: -150px; z-index: 99;
+			margin-left: 0; width: 250px;
+		}
+		#label_exc_help:hover img {
+			border: 0; margin: -13px 0 0 -55px;
+			float: left; position: absolute; left: 30px;
+		}
+		#label_exc_help:hover em {
+			font-family: Candara, Tahoma, Geneva, sans-serif; font-size: 1.2em; font-weight: bold;
+			display: block; padding: 0.2em 0 0.6em 0;
+		}
+		.info { background: #003366; border: 1px solid #2BB0D7;	}

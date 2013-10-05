@@ -1,0 +1,493 @@
+// main function
+(
+function () {
+	// making it selectable *** no solution yet
+	// var SCAN_USERID;
+	// var SCAN_CONNECT;
+	// SCAN_TAG
+	// SCAN_EDUWORK
+	// SCAN_HOMETOWN
+	// SCAN_RELATIONSHIPS
+	// SCAN_BIO
+	// SCAN_BASIC_INFO
+	// SCAN_CONTACT_INFO
+	// SCAN_QUOTES
+	
+	
+	// console.log("frivacy-client-started");
+
+	appURL = "//apps.facebook.com/frivacy";
+//	userID = 504592327;	// FB user id
+//	userID = 100000037056271;	// FB user id
+	settings = {};		// settings array
+	settingLabel = "";
+	settingValue = "";
+	
+	gr_connect = 0;
+	gr_tag = 0;
+	gr_eduwork = 0;
+	gr_hometown = 0;
+	gr_relationships = 0;
+	gr_bio = 0;
+	gr_basic_info = 0;
+	//gr_contact_info = 0;
+	gr_quotes = 0;
+	
+	
+	// user fb id
+	// gr_user = $.ajax({
+			// url: "https://www.facebook.com",
+			// type: "GET"
+		// }).done( function(response){
+			// // retrieve settings within that div
+			// settings["userFBId"] = $("input[name=targetid]").attr("value");
+			
+			
+			userID = "100000037056271";
+			
+			var req = new XMLHttpRequest();
+			
+			
+			
+			
+			
+			
+			
+			// "how you connect" settings
+			req.open(
+					"GET",
+					"https://www.facebook.com/ajax/settings/privacy/connect.php?__a=1&__d=1&__user=" + userID,	
+					true
+			);
+
+			req.onload = show1;
+			req.send(null);
+			
+			function show1() {
+					response = req.responseText;
+					// clean up and convert the response to JSON. source: http://stackoverflow.com/questions/7666139/how-to-put-a-json-file-with-html-information-into-the-dom
+					response = response.substring(9,response.length);	// remove "for(;;);"
+					// response = response.replace(/.*?;{/, "{");
+					jsonFile = JSON.parse(response);
+					// append response to body in a specific div
+					$("body").append("<div id='frivacy-div' style='display:none;visibility:hidden;'> " + jsonFile.payload.body.__html + "</div>");
+					// retrieve settings within that div
+					$(".fbPrivacyConnectItem", "#frivacy-div").each( function(){
+							settingLabel = $(this).children("div.privacyLabel.lfloat").html();
+							settingValue = $(this).find("span.uiButtonText").html();
+							settings[settingLabel] = settingValue;
+						});
+					$("#frivacy-div").remove();
+					// console.log("done connect");
+					gr_connect = 1;
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			var req2 = new XMLHttpRequest();
+			// "timeline and tagging" settings
+			req2.open(
+					"GET",
+					"https://www.facebook.com/ajax/settings/privacy/tag.php?__a=1&__d=1&__user=" + userID,	
+					true
+			);
+
+			req2.onload = show2;
+			req2.send(null);
+			
+			function show2() {
+					response = req2.responseText;
+					// clean up and convert the response to JSON. source: http://stackoverflow.com/questions/7666139/how-to-put-a-json-file-with-html-information-into-the-dom
+					response = response.substring(9,response.length);	// remove "for(;;);"
+					jsonFile = JSON.parse(response);
+					// append response to body in a specific div
+					$("body").append("<div id='frivacy-div' style='display:none;visibility:hidden;'> " + jsonFile.payload.body.__html + "</div>");
+					// retrieve settings within that div
+					$("tr", "#frivacy-div").each( function(){
+							settingLabel = $(this).find("div.pvm.phs").html();
+							settingValue = $(this).find("span.uiButtonText").html();
+							// off/on or other types of settings
+							if (!settingValue) {	
+								settingValue = $(this).find("span.fbPrivacyTagDialogStatus").html();
+							}
+							// record custom settings
+							else if (settingValue.toLowerCase() == "custom") {
+								$(this).find("span.customPrivacyInputs > input").each( function(){
+									settingValue += ";" + $(this).attr("name") + ":" + $(this).attr("value");
+								} );
+							}
+							settings[settingLabel] = settingValue;
+						} );
+					$("#frivacy-div").remove();
+					// console.log("done tagging");
+					gr_tag = 1;
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			var req3 = new XMLHttpRequest();
+			// "Work and Education" settings
+			req3.open(
+					"GET",
+					"https://www.facebook.com/ajax/timeline/edit_profile/eduwork.php?__a=1&__user=" + userID,	
+					true
+			);
+
+			req3.onload = show3;
+			req3.send(null);
+			
+			function show3() {
+					response = req3.responseText;
+					// clean up and convert the response to JSON.
+					response = response.substring(9,response.length);	// remove "for(;;);"
+					jsonFile = JSON.parse(response);
+					// append response to body in a specific div
+					$("body").append("<div id='frivacy-div' style='display:none;visibility:hidden;'> " + jsonFile.domops[0][3].__html + "</div>");
+					// retrieve settings within that div
+					$("table.fbEditProfileExperienceSection > tbody", "#frivacy-div").each( function(){
+							settingLabel = $(this).find("input.inputtext[type:text]").attr("value");
+							settingValue = $(this).find("li.fbPrivacyAudienceSelectorOption.checked").attr("data-label");
+							// record custom settings
+							if (settingValue.toLowerCase() == "custom") {
+								$(this).find("span.customPrivacyInputs > input").each( function(){
+									settingValue += ";" + $(this).attr("name") + ":" + $(this).attr("value");
+								} );
+							}
+							settings[settingLabel] = settingValue;
+						} );
+					$("#frivacy-div").remove();
+					// console.log("done work");
+					gr_eduwork = 1;
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			var req4 = new XMLHttpRequest();	
+			// "Living" settings
+			req4.open(
+					"GET",
+					"https://www.facebook.com/ajax/timeline/edit_profile/hometown.php?__a=1&__user=" + userID,	
+					true
+			);
+
+			req4.onload = show4;
+			req4.send(null);
+			
+			function show4() {
+					response = req4.responseText;
+					// clean up and convert the response to JSON.
+					response = response.substring(9,response.length);	// remove "for(;;);"
+					jsonFile = JSON.parse(response);
+					// append response to body in a specific div
+					$("body").append("<div id='frivacy-div' style='display:none;visibility:hidden;'> " + jsonFile.jsmods.markup[0][1].__html  + "</div>");
+					// retrieve settings within that div
+					$("table.uiInfoTable > tbody > tr", "#frivacy-div").each( function(){
+							settingLabel = $(this).children("th[class:label]").html();
+							settingValue = $(this).find("li.fbPrivacyAudienceSelectorOption.checked").attr("data-label");
+							// record custom settings
+							if (settingValue.toLowerCase() == "custom") {
+								$(this).find("span.customPrivacyInputs > input").each( function(){
+									settingValue += ";" + $(this).attr("name") + ":" + $(this).attr("value");
+								} );
+							}
+							settings[settingLabel] = settingValue;
+						} );
+					$("#frivacy-div").remove();
+					// console.log("done living");
+					gr_hometown = 1;
+			}
+
+
+
+
+
+
+
+			var req5 = new XMLHttpRequest();
+			// "Family" settings
+			req5.open(
+					"GET",
+					"https://www.facebook.com/ajax/timeline/edit_profile/relationships.php?__a=1&__user=" + userID,	
+					true
+			);
+
+			req5.onload = show5;
+			req5.send(null);
+			
+			function show5() {
+					response = req5.responseText;
+					// clean up and convert the response to JSON.
+					response = response.substring(9,response.length);	// remove "for(;;);"
+					jsonFile = JSON.parse(response);
+					// append response to body in a specific div
+					$("body").append("<div id='frivacy-div' style='display:none;visibility:hidden;'> " + jsonFile.jsmods.markup[0][1].__html + "</div>");
+					// retrieve settings within that div
+					$("table.uiInfoTable > tbody > tr", "#frivacy-div").each( function(){
+							settingLabel = $(this).children("th[class:label]").html();
+							settingValue = $(this).find("li.fbPrivacyAudienceSelectorOption.checked").attr("data-label");
+							if (!settingValue)	// skip spacer/non-visible items
+								return true;
+							// record custom settings
+							if (settingValue.toLowerCase() == "custom") {
+								$(this).find("span.customPrivacyInputs > input").each( function(){
+									settingValue += ";" + $(this).attr("name") + ":" + $(this).attr("value");
+								} );
+							}
+							settings[settingLabel] = settingValue;
+						} );
+					$("#frivacy-div").remove();
+					// console.log("done family");
+					gr_relationships = 1;
+			}
+			
+			
+			
+			
+			
+			
+			/*
+				
+			// "About You" settings	
+			req.open(
+					"GET",
+					"https://www.facebook.com/ajax/timeline/edit_profile/bio.php?__a=1&__user=" + userID,	
+					true
+			);
+
+			req.onload = show7;
+			req.send(null);
+			
+			function show7() {
+					response = req.responseText;
+					alert("ho");
+					// clean up and convert the response to JSON.
+					response = response.substring(9,response.length);	// remove "for(;;);"
+					jsonFile = JSON.parse(response);
+					// append response to body in a specific div
+					$("body").append("<div id='frivacy-div' style='display:none;visibility:hidden;'> " + jsonFile.jsmods.markup[0][1].__html + "</div>");
+					// retrieve settings within that div
+					$("table.uiInfoTable > tbody > tr", "#frivacy-div").each( function(){
+							settingLabel = $(this).children("th[class:label]").html();
+							settingValue = $(this).find("li.fbPrivacyAudienceSelectorOption.checked").attr("data-label");
+							if (!settingValue)	// skip spacer/non-visible items
+								return true;
+							// record custom settings
+							if (settingValue.toLowerCase() == "custom") {
+								$(this).find("span.customPrivacyInputs > input").each( function(){
+									settingValue += ";" + $(this).attr("name") + ":" + $(this).attr("value");
+								} );
+							}
+							settings[settingLabel] = settingValue;
+						} );
+					$("#frivacy-div").remove();
+					// console.log("done about");
+					gr_bio = 1;
+			}
+			
+			
+			
+			
+			
+			
+				
+			// "Basic Info" settings	
+			// *** item "sex" is not captured currently
+			req.open(
+					"GET",
+					"https://www.facebook.com/ajax/timeline/edit_profile/basic_info.php?__a=1&__user=" + userID,	
+					true
+			);
+
+			req.onload = show8;
+			req.send(null);
+			
+			function show8() {
+					response = req.responseText;
+					// clean up and convert the response to JSON.
+					response = response.substring(9,response.length);	// remove "for(;;);"
+					jsonFile = JSON.parse(response);
+					// append response to body in a specific div
+					$("body").append("<div id='frivacy-div' style='display:none;visibility:hidden;'> " + jsonFile.jsmods.markup[0][1].__html + "</div>");
+					// retrieve settings within that div
+					$("table.uiInfoTable > tbody > tr", "#frivacy-div").each( function(){
+							settingLabel = $(this).children("th[class:label]").html();
+							settingValue = $(this).find("li.fbPrivacyAudienceSelectorOption.checked").attr("data-label");
+							if (!settingValue)	// skip spacer/non-visible items
+								return true;
+							// record custom settings
+							if (settingValue.toLowerCase() == "custom") {
+								$(this).find("span.customPrivacyInputs > input").each( function(){
+									settingValue += ";" + $(this).attr("name") + ":" + $(this).attr("value");
+								} );
+							}
+							settings[settingLabel] = settingValue;
+						} );
+					$("#frivacy-div").remove();
+					// console.log("done basic");
+					gr_basic_info = 1;
+			}
+			
+			
+			
+			
+			
+			
+			
+				
+			
+			
+			
+			// "Contact Info" settings	
+			//*** 8/27/2012: does not work for now beacuse FB requires re-entering password to edit the settings
+			// gr_contact_info = $.ajax({
+					// url: "https://www.facebook.com/ajax/timeline/edit_profile/contact_info.php",
+					// type: "GET",
+					// data: {__a: 1, __user: userID},
+					// dataType: "text"
+				// }).done( function(response){
+					// clean up and convert the response to JSON.
+					// response = response.substring(9,response.length);	// remove "for(;;);"
+					// jsonFile = JSON.parse(response);
+					// console.log(jsonFile);
+					// append response to body in a specific div
+					// $("body").append("<div id='frivacy-div' style='display:none;visibility:hidden;'> " + jsonFile.jsmods.markup[0][1].__html + "</div>");
+					// retrieve settings within that div
+					// prevLabel = "";		// to store label for items with multiple values & settings
+					// $("li.fbPrivacyAudienceSelectorOption.checked", "#frivacy-div").each( function(){
+							// settingValue = $(this).attr("data-label");
+							// settingLabel = $(this).closest("tr").children("th[class:label]").html();
+							// if (!settingLabel) {	// use label from previous + counter
+								// settingLabel = prevLabel + labelCounter++;
+							// }
+							// else {					// reset label & counter
+								// prevLabel = settingLabel;
+								// labelCounter = 1;
+							// }
+							// record custom settings
+							// if (settingValue.toLowerCase() == "custom") {
+								// $(this).find("span.customPrivacyInputs > input").each( function(){
+									// settingValue += ";" + $(this).attr("name") + ":" + $(this).attr("value");
+								// } );
+							// }
+							// settings[settingLabel] = settingValue;
+						// } );
+					// $("#frivacy-div").remove();
+					// console.log("done contact");
+					//gr_contact_info = 1;
+				// });
+				
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			// "Favorite Quotations" settings	
+			req.open(
+					"GET",
+					"https://www.facebook.com/ajax/timeline/edit_profile/quotes.php?__a=1&__user=" + userID,	
+					true
+			);
+
+			req.onload = show10;
+			req.send(null);
+			
+			function show10() {
+					response = req.responseText;
+					// clean up and convert the response to JSON.
+					response = response.substring(9,response.length);	// remove "for(;;);"
+					jsonFile = JSON.parse(response);
+					content = jsonFile.domops[0][3];
+					content = '{"html":' + content.substring(content.indexOf("HTML(") + 5, content.length - 2) + '}';
+					jsonContent = JSON.parse(content);
+					// append response to body in a specific div
+					$("body").append("<div id='frivacy-div' style='display:none;visibility:hidden;'> " + jsonContent.html + "</div>");
+					// retrieve settings within that div
+					$("table.uiInfoTable > tbody > tr", "#frivacy-div").each( function(){
+							settingLabel = $(this).children("th[class:label]").html();
+							settingValue = $(this).find("li.fbPrivacyAudienceSelectorOption.checked").attr("data-label");
+							if (!settingValue)	// skip spacer/non-visible items
+								return true;
+							// record custom settings
+							if (settingValue.toLowerCase() == "custom") {
+								$(this).find("span.customPrivacyInputs > input").each( function(){
+									settingValue += ";" + $(this).attr("name") + ":" + $(this).attr("value");
+								} );
+							}
+							settings[settingLabel] = settingValue;
+						} );
+					$("#frivacy-div").remove();
+					// console.log("done quotes");
+					gr_quotes = 1;
+			}
+			
+			
+			*/
+			
+			
+			
+			// if(gr_connect == 1 || gr_tag == 1 || gr_eduwork == 1 || gr_hometown == 1 || gr_relationships == 1)
+			// {
+			// alert("hi");
+			// }
+			alert(gr_connect);
+			
+			
+				
+			// query all the requests and process the results
+			
+				 
+			function save_sett() {
+					 // console.log("done");
+					 // console.log(settings);
+
+					 // send privacy settings to the server
+					 $.ajax({
+					 url: "https://lersais.exp.sis.pitt.edu/frivacy/save-settings.php",
+					 type: "POST",
+					 data: {jsondata: JSON.stringify(settings)},
+					 dataType: "text"
+					}).done( function(response){
+					 console.log("data was successfully sent");
+						
+					 alert("Scanning your privacy settings is complete. You will be redirected to the app.");
+					 // redirect user to the app page
+					 top.location.href = appURL;
+					}).fail( function(xhr, ajaxOptions, thrownError){
+					 alert("Error sending the results!")
+					});
+			}
+			
+		//});
+	
+	// console.log(settings);
+	// console.log(JSON.stringify(settings));
+}
+)();

@@ -1,0 +1,79 @@
+user id: 100000037056271
+
+Birthday: 		Custom;audience[8787510733][custom_value]:50 //I think custom value 50 is set by facebook to denote that user till now has
+			not selected any option. This value is most probably never reached again once the user sets some value.
+
+Political Views: 	Custom;audience[8787640733][custom_value]:50
+
+Religion: 		default custom:
+			Custom;audience[8787645733][custom_value]:50
+
+			/********************************************
+				1)strange numbers only appear when custom value is selected.
+				
+				
+
+
+				2)My guess is that "ids_anon" is the entry in DB under audience table that corresponds to a new object
+				that tells who are allowed to view this update.
+				Similarly, "ids_x_anon" corresponds to a new object that tells who are not allowed to view.
+				Also,"ids_anon[0],ids_anon[1] etc corresponds to the ID's of the persons.
+				Wild Guess: If in privacy settings you say that only 'Family' can see your update. Then this group of yours is actually
+				a list within your friends and the members of this list is stored in another table somewhere.
+				But now when you choose your friends, you are essentially creating a new list. So facebook will now create a
+				new table for you. And since this table is new, it is called "list_anon" for "listing anonymous users". Because for
+				facebook your friends are anonymous to them. similarly "list_x_anon". and similarly is "ids_anon" which stands for "ID's
+				of anonymous people". OR ANON MAY ALSO REFER TO "FROM DIFFERENT TIME" i.e. LIST WAS NOT CREATED BY USER BUT IS CREATED
+				AT THIS TIME.
+				MORE PROBABILITY THAT FIRST ONE IS THE CASE.
+				
+				
+				
+				3)list_anon is actually an element that corresponds to something...
+				
+				
+				
+				4)Audience[some value] most probably is the entry in the big table audience table that keeps track of all the persons
+				data that who are allowed to view their updates and who are not.
+			********************************************/
+			
+			specific people or list : honey anant (1)
+			Custom;audience[8787645733][custom_value]:111;audience[8787645733][friends]:30;
+			audience[8787645733][list_anon]:491955670815664;audience[8787645733][ids_anon][0]:100001513131457 <--HONEY'S ID
+			
+			
+			specific people or list : honey anant (2)
+			Custom;audience[8787645733][custom_value]:111;audience[8787645733][friends]:30;
+			audience[8787645733][list_anon]:491954544149110;audience[8787645733][ids_anon][0]:100001513131457
+			
+			
+			specific people or list : honey anant, manish chaudhary
+			Custom;audience[8787645733][custom_value]:111;audience[8787645733][friends]:30;
+			audience[8787645733][list_anon]:491956767482221;audience[8787645733][ids_anon][0]:100001513131457;
+			audience[8787645733][ids_anon][1]:100001591323166 <--MANISH'S ID
+			
+			
+			specific people or list : honey anant   		excluded: manish chaudhary
+			Custom;audience[8787645733][custom_value]:111;audience[8787645733][friends]:30;
+			audience[8787645733][list_anon]:491960457481852;audience[8787645733][list_x_anon]:491960464148518;
+			audience[8787645733][ids_anon][0]:100001513131457;audience[8787645733][ids_x_anon][0]:100001591323166
+			
+			
+			specific people or list: showed to LIST--> Family and one ID- rohit kumar (list item 3)
+			/*note that facebook automatically detects that given input is a list or an ID and changes input accordingly*/
+			Custom;audience[8787645733][custom_value]:111;audience[8787645733][friends]:30;
+			audience[8787645733][list_anon]:491968240814407;audience[8787645733][lists][0]:280840901927143;
+			audience[8787645733][ids_anon][0]:100000041841999
+			
+			
+			specific people or list:choosed Friends. (list item 2)
+			Custom;audience[8787645733][custom_value]:111;audience[8787645733][friends]:40;
+			audience[8787645733][no_tag_expansion]:1
+			
+			
+			
+			specific people or list:choosed friends of friends: (list item 1)
+			Custom;audience[8787645733][custom_value]:111;audience[8787645733][friends]:50;
+			audience[8787645733][no_tag_expansion]:1
+			
+			

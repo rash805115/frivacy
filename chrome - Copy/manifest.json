@@ -1,0 +1,23 @@
+{
+  "name": "Frivacy",
+  "version": "2.0",
+  "manifest_version": 2,
+  "description": "View your facebook Privacy",
+  "permissions": [
+    "http://*.facebook.com/*",
+	"https://*.facebook.com/*",
+	"http://*.lersais.exp.sis.pitt.edu/frivacy/*",
+	"https://*.lersais.exp.sis.pitt.edu/frivacy/*",
+	"tabs"
+  ],
+  "background": {
+    "scripts": ["jquery.js", "background.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://apps.facebook.com/frivacy/*", "http://apps.facebook.com/frivacy/*", "https://*.lersais.exp.sis.pitt.edu/frivacy/*", "http://*.lersais.exp.sis.pitt.edu/frivacy/*"],
+      "js": ["jquery.js", "catch.js"],
+	  "all_frames": true
+    }
+  ]
+}
